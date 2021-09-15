@@ -15,21 +15,19 @@ app.get("/nomor1", async (req, res) => {
       { id_produk: 2, qty: 18 },
     ];
 
-    let getRes = [
-      {
-        nama_produk: Object.values(produk)[0].nama_produk,
+    let arr1 = [];
+    for (let i = 0; i < 2; i++) {
+      let nameAndQty = {
+        nama_produk: Object.values(produk)[i].nama_produk,
         total_stock:
-          Object.values(stok_produk)[0].qty + Object.values(stok_produk)[1].qty,
-      },
-      {
-        nama_produk: Object.values(produk)[0].nama_produk,
-        total_stock:
-          Object.values(stok_produk)[2].qty + Object.values(stok_produk)[3].qty,
-      },
-    ];
+          Object.values(stok_produk)[i * 2].qty +
+          Object.values(stok_produk)[i * 2 + 1].qty,
+      };
+      arr1.push(nameAndQty);
+    }
 
     return res.status(200).json({
-      result: getRes,
+      result: arr1,
     });
   } catch (err) {
     res.status(500).json({
